@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo Gaming</title>
+    <link rel="stylesheet" href="tarea1.css">
+    <script src="TG.Js"></script>
+    <style>
+        img { cursor: pointer; }
+        img:hover { opacity: 0.9; }
+    </style>
+</head>
+
+<body>
+
+<header id="inicio">
+    <h1>Todo Gaming</h1>
+    <nav>
+        <a href="iniciosesion.html" class="nav-link"> Iniciar Sesión </a>
+        <a href="usuario.html" class="nav-link"> Usuario </a>
+        <a href="carrito.html" class="nav-link"> Carrito </a>
+        <a href="listadeseo.html" class="nav-link"> Lista de Deseo </a>
+    </nav>
+</header>
+
+<center>
+<div class="container">
+    <ul class="slider">
+        <li id="bloodborne">
+            <img class="slider_principal" 
+                 src="https://www.psu.com/wp/wp-content/uploads/2017/11/bloodborne.jpg"
+                 onclick="abrirModal('Bloodborne', 120, 'https://www.psu.com/wp/wp-content/uploads/2017/11/bloodborne.jpg', 'Un RPG de acción gótico y horror donde enfrentas pesadillas en Yharnam.')">
+            <div class="caja_slider_principal">
+                <h3> Bloodborne </h3>
+                <h3>Mex $120</h3>
+                <h3> Survival horror </h3>
+                <h3> horror </h3>
+                </div>
+        </li>
+
+        <li id="brawlhalla">
+            <img class="slider_principal" 
+                 src="https://image.api.playstation.com/vulcan/ap/rnd/202305/1523/5aaaa377b9a4803f932a1aa4f4b18d8b12ca7c29490dfb14.jpg"
+                 onclick="abrirModal('Brawlhalla', 0, 'https://image.api.playstation.com/vulcan/ap/rnd/202305/1523/5aaaa377b9a4803f932a1aa4f4b18d8b12ca7c29490dfb14.jpg', 'Juego de peleas en plataformas gratuito. Juega con leyendas de la historia.')">
+            <div class="caja_slider_principal">
+                <h3> Brawlhalla </h3>
+                <h3>Gratis!!</h3>
+                <h3> peleas </h3>
+                <h3> multijugador </h3>
+                </div>
+        </li>
+
+        <li id="Fate/Grand Order">
+            <img class="slider_principal" 
+                 src="https://assets1.ignimgs.com/2016/12/06/fate-grand-order---button-1481059170260.jpg"
+                 onclick="abrirModal('Fate/Grand Order', 0, 'https://assets1.ignimgs.com/2016/12/06/fate-grand-order---button-1481059170260.jpg', 'Salva a la humanidad en este RPG visual novel basado en la franquicia Fate.')">
+            <div class="caja_slider_principal">
+                <h3> Fate/grand order </h3>
+                <h3>Gratis!!</h3>
+                <h3> gacha </h3>
+                <h3> multijugador </h3>
+                </div>
+        </li>
+    </ul>
+
+    <ul class="menu">
+        <li><a href="#bloodborne">1</a></li>
+        <li><a href="#brawlhalla">2</a></li>
+        <li><a href="#Fate/Grand Order">3</a></li>
+    </ul>
+</div>
+</center>
+
+
+<section class="proyectos_info">
+    <h2 class="titulo_bordeado">Tendencia</h2>
+
+    <div class="proyecto">
+        <h3 class="titulos">Minecraft</h3>
+        <img src="https://th.bing.com/th/id/OIP.r99VwMgSDSzjRFcKg2QZJwHaHa?o=7&cb=defcachec2&rs=1&pid=ImgDetMain&o=7&rm=3"
+             onclick="abrirModal('Minecraft', 180, 'https://th.bing.com/th/id/OIP.r99VwMgSDSzjRFcKg2QZJwHaHa?o=7&cb=defcachec2&rs=1&pid=ImgDetMain&o=7&rm=3', 'Construye, explora y sobrevive en un mundo infinito de bloques.')">
+        <p> Minecraft </p>
+        <p> Mex $180 </p>
+        <p> Survival </p>
+        <p> Sandbox </p>
+        </div>
+
+    <div class="proyecto">
+        <h3 class="titulos">Gears 3</h3>
+        <img src="https://tse1.mm.bing.net/th/id/OIP.dugiYDhs2_sterBkYrf8ogHaJW?cb=defcachec2&rs=1&pid=ImgDetMain&o=7&rm=3"
+             onclick="abrirModal('Gears 3', 180, 'https://tse1.mm.bing.net/th/id/OIP.dugiYDhs2_sterBkYrf8ogHaJW?cb=defcachec2&rs=1&pid=ImgDetMain&o=7&rm=3', 'La épica conclusión de la trilogía original. Acción y disparos.')">
+        <p>Gears 3</p>
+        <p>Mex $180</p>
+        <p> shooter </p>
+        <p> multiplayer </p>
+        </div>
+
+    <div class="proyecto">
+        <h3 class="titulos">Silksong</h3>
+        <img src="https://tse4.mm.bing.net/th/id/OIP.b4dK8nZvvbHJ4wGOHu6jbQHaEK?cb=defcachec2&rs=1&pid=ImgDetMain&o=7&rm=3"
+             onclick="abrirModal('Silksong', 110, 'https://tse4.mm.bing.net/th/id/OIP.b4dK8nZvvbHJ4wGOHu6jbQHaEK?cb=defcachec2&rs=1&pid=ImgDetMain&o=7&rm=3', 'Explora un reino embrujado de insectos y héroes en esta secuela de Hollow Knight.')">
+        <p>Silksong</p>
+        <p>Mex $110</p>
+        <p> Metroidvania </p>
+        <p> 2D </p>
+        </div>
+</section>
+
+<section class="proyectos_info">
+    <h2 class="titulo_bordeado">Juegos Gacha</h2>
+
+    <div class="proyecto">
+        <h3 class="titulos">Genshin Impact</h3>
+        <img src="https://static0.gamerantimages.com/wordpress/wp-content/uploads/2025/01/genshin-impact-main-characters-resting.jpg"
+             onclick="abrirModal('Genshin Impact', 0, 'https://static0.gamerantimages.com/wordpress/wp-content/uploads/2025/01/genshin-impact-main-characters-resting.jpg', 'Mundo abierto de aventura y rol con sistema de elementos.')">
+        <p>Juegos Gacha</p>
+        <p>Gratis</p>
+        <p> Adventure </p>
+        <p> RPG </p>
+        </div>
+
+    <div class="proyecto">
+        <h3 class="titulos">Wuthering Waves</h3>
+        <img src="https://tse3.mm.bing.net/th/id/OIP.X88AJu7HdMpVNewK6Uli5gHaEK?cb=defcachec2&rs=1&pid=ImgDetMain&o=7&rm=3"
+             onclick="abrirModal('Wuthering Waves', 0, 'https://tse3.mm.bing.net/th/id/OIP.X88AJu7HdMpVNewK6Uli5gHaEK?cb=defcachec2&rs=1&pid=ImgDetMain&o=7&rm=3', 'RPG de acción post-apocalíptico con combate rápido.')">
+        <p>Wuthering Waves</p>
+        <p>Gratis</p>
+        <p> Adventure </p>
+        <p> RPG </p>
+        </div>
+
+    <div class="proyecto">
+        <h3 class="titulos">Fate/Grand Order</h3>
+        <img src="https://assets1.ignimgs.com/2016/12/06/fate-grand-order---button-1481059170260.jpg"
+             onclick="abrirModal('Fate/Grand Order', 0, 'https://assets1.ignimgs.com/2016/12/06/fate-grand-order---button-1481059170260.jpg', 'Novela visual y RPG estratégico.')">
+        <p>Fate/Grand Order</p>
+        <p>Gratis</p>
+        <p> Visual Novel </p>
+        <p> RPG </p>
+        </div>
+</section>
+
+<footer id="pie">
+    <p>Síguenos en nuestras redes sociales:</p>
+    <a href="#">Facebook</a> |
+    <a href="#">Instagram</a> |
+    <a href="#">X</a>
+    <p>&copy; 2026 Todo Gaming, todos los derechos reservados.</p>
+</footer>
+
+<div id="miModal" class="overlay">
+    <div class="modal-content">
+        <button class="btn-cerrar" onclick="cerrarModal()">X</button>
+        <h2 id="m-titulo">Titulo</h2>
+        <img id="m-img" src="" class="modal-img">
+        <h3 id="m-precio" style="color: yellow;">Precio</h3>
+        <p id="m-desc" style="padding: 10px; font-style: normal; color: #ddd;">Descripción...</p>
+        <hr>
+        <div class="botones-modal">
+            <button onclick="agregarDesdeModal()"> Carrito</button>
+            <button onclick="agregarADeseos()" style="background-color: #ff69b4;"> Deseados</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu Carrito</title>
+    <link rel="stylesheet" href="tarea1.css">
+    <script src="TG.Js"></script>
+</head>
+<body onload="cargarCarritoPagina()">
+
+    <header>
+        <h1>Tu Carrito</h1>
+        <nav>
+            <a href="TodoGaming.HTML">Seguir comprando</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div style="overflow-x: auto;"> <table>
+                <thead>
+                    <tr>
+                        <th>Juego:</th>
+                        <th>Gears 3</th>
+                        <th>Precio:</th>
+                        <th>180</th>                    
+                    </tr>
+                </thead>
+                <tbody id="tablaCarrito"></tbody>
+            </table>
+        </div>
+
+        <h3>Total: Mex $<span id="totalPrecio">180</span></h3>
+        
+        <div style="max-width: 300px; margin: auto;">
+            <a href="Pago.HTML"><button>Proceder al Pago</button></a>
+        </div>
+    </div>
+
+</body>
+</html>

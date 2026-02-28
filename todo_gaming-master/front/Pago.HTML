@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pago Seguro</title>
+    <link rel="stylesheet" href="tarea1.css">
+    <script src="TG.Js"></script>
+</head>
+<body>
+
+    <header>
+        <h1>Finalizar Compra</h1>
+        <nav><a href="carrito.html">Volver</a></nav>
+    </header>
+
+    <div class="container">
+        <div class="form-box">
+            <h2>Datos Bancarios</h2>
+            <input type="text" id="nombreTarjeta" placeholder="Nombre del Titular">
+            <input type="number" id="numTarjeta" placeholder="Número (16 dígitos)">
+            <div>
+                <input type="text" placeholder="MM/AA" class="input-corto">
+                <input type="password" id="cvv" placeholder="CVV" class="input-corto" maxlength="3">
+            </div>
+            <button onclick="validarPago()">Pagar Ahora</button>
+        </div>
+    </div>
+
+</body>
+</html>
