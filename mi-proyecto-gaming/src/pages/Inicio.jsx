@@ -64,9 +64,9 @@ export default function Inicio({ filtroBusqueda = '' }) {
       
       <div className="w-full max-w-[1200px]">
 
-        {/* --- INICIO DEL CARRUSEL --- */}
+        {/* --- INICIO DEL CARRUSEL ARREGLADO Y COMPACTO --- */}
         {!filtroBusqueda && juegosCarrusel.length > 0 && (
-          <div className="w-full h-[400px] sm:h-[500px] relative overflow-hidden rounded-2xl mb-16 border-2 border-gray-700 shadow-[0_0_30px_rgba(0,0,0,0.5)] group bg-[#1a1a24]">
+          <div className="w-full h-[250px] sm:h-[300px] relative overflow-hidden rounded-xl mb-12 border border-gray-700 shadow-xl group bg-[#1a1a24]">
             {juegosCarrusel.map((juego, index) => (
               <div
                 key={juego._id}
@@ -74,35 +74,31 @@ export default function Inicio({ filtroBusqueda = '' }) {
                   index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
                 }`}
               >
-                {/* Imagen de fondo oscurecida */}
-                <div className="absolute inset-0 bg-black/40 z-10"></div>
-                <img 
-                  src={juego.imageUrl} 
-                  alt={juego.title} 
-                  className="w-full h-full object-cover blur-[2px] scale-105"
-                />
-                
-                {/* Contenido del carrusel */}
-                <div className="absolute inset-0 z-20 flex flex-col md:flex-row items-center justify-center gap-8 p-8 bg-gradient-to-t from-[#1e262c] via-transparent to-transparent">
-                  <img 
-                    src={juego.imageUrl} 
-                    alt={juego.title} 
-                    className="h-[200px] md:h-[300px] object-cover rounded-xl shadow-2xl border-2 border-gray-600 cursor-pointer hover:border-[#66b2ff] transition-all hover:scale-105"
-                    onClick={() => abrirModal(juego)}
-                  />
-                  <div className="text-center md:text-left max-w-md">
-                    <span className="bg-[#66b2ff] text-[#1e262c] text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-3 inline-block">
+                {/* Contenido del carrusel compactado y limpio */}
+                <div className="absolute inset-0 z-20 flex flex-col md:flex-row items-center gap-6 p-5">
+                  {/* Imagen principal a la izquierda, ocupando la altura */}
+                  <div className="h-[180px] md:h-full w-auto flex-none">
+                    <img 
+                      src={juego.imageUrl} 
+                      alt={juego.title} 
+                      className="h-full w-auto object-contain rounded-lg border border-gray-600 cursor-pointer hover:border-[#66b2ff] transition-all hover:scale-105"
+                      onClick={() => abrirModal(juego)}
+                    />
+                  </div>
+                  {/* Contenedor de texto a la derecha, centrado verticalmente */}
+                  <div className="text-center md:text-left flex-1 flex flex-col items-center md:items-start justify-center">
+                    <span className="bg-[#1a1a24] border border-gray-600 text-[#66b2ff] text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-2 inline-block">
                       Destacado
                     </span>
-                    <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-2 uppercase drop-shadow-lg">
+                    <h2 className="text-2xl md:text-3xl font-extrabold text-white mb-2 uppercase drop-shadow-lg leading-snug truncate w-full" title={juego.title}>
                       {juego.title}
                     </h2>
-                    <p className="text-[#66b2ff] text-2xl font-bold mb-6 drop-shadow-md">
+                    <p className="text-[#66b2ff] text-xl font-bold mb-5 drop-shadow-md">
                       Mex ${juego.price}
                     </p>
                     <button 
                       onClick={() => abrirModal(juego)}
-                      className="bg-[#66b2ff] text-[#1e262c] px-8 py-3 rounded-full font-bold text-lg hover:bg-white transition-all shadow-lg hover:shadow-[#66b2ff]/50"
+                      className="bg-[#66b2ff] text-[#1e262c] px-5 py-2 rounded-full font-bold text-base hover:bg-white transition-all shadow-md hover:shadow-[#66b2ff]/40"
                     >
                       Ver Detalles
                     </button>
@@ -114,32 +110,32 @@ export default function Inicio({ filtroBusqueda = '' }) {
             {/* Controles del Carrusel (Flechas) */}
             <button
               onClick={() => setCurrentSlide(prev => prev === 0 ? juegosCarrusel.length - 1 : prev - 1)}
-              className="absolute top-1/2 left-4 -translate-y-1/2 bg-black/50 text-white w-12 h-12 flex items-center justify-center rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-30 hover:bg-[#66b2ff] hover:text-black text-2xl"
+              className="absolute top-1/2 left-3 -translate-y-1/2 bg-black/60 text-white w-10 h-10 flex items-center justify-center rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-30 hover:bg-[#66b2ff] hover:text-black text-xl shadow-lg border border-gray-600"
             >
               &#10094;
             </button>
             <button
               onClick={() => setCurrentSlide(prev => prev === juegosCarrusel.length - 1 ? 0 : prev + 1)}
-              className="absolute top-1/2 right-4 -translate-y-1/2 bg-black/50 text-white w-12 h-12 flex items-center justify-center rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-30 hover:bg-[#66b2ff] hover:text-black text-2xl"
+              className="absolute top-1/2 right-3 -translate-y-1/2 bg-black/60 text-white w-10 h-10 flex items-center justify-center rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-30 hover:bg-[#66b2ff] hover:text-black text-xl shadow-lg border border-gray-600"
             >
               &#10095;
             </button>
 
             {/* Indicadores (Puntitos) */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-3 z-30">
+            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2.5 z-30 bg-black/50 px-3 py-1.5 rounded-full border border-gray-700">
               {juegosCarrusel.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentSlide(index)}
-                  className={`w-3 h-3 rounded-full transition-all ${
-                    index === currentSlide ? 'bg-[#66b2ff] w-8' : 'bg-gray-400 hover:bg-white'
+                  className={`w-2.5 h-2.5 rounded-full transition-all ${
+                    index === currentSlide ? 'bg-[#66b2ff] w-7' : 'bg-gray-500 hover:bg-white'
                   }`}
                 />
               ))}
             </div>
           </div>
         )}
-        {/* --- FIN DEL CARRUSEL --- */}
+        {/* --- FIN DEL CARRUSEL ARREGLADO --- */}
 
         {Object.keys(juegosPorGenero).length === 0 ? (
           <p className="text-center text-gray-400 text-xl mt-10">
@@ -180,7 +176,7 @@ export default function Inicio({ filtroBusqueda = '' }) {
         )}
       </div>
 
-      {/* MODAL */}
+      {/* MODAL (sin cambios, solo mejoras sutiles de estilo) */}
       {modalAbierto && (
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-[100] p-4 backdrop-blur-sm">
           <div className="bg-[#2c353e] border-2 border-[#66b2ff] rounded-2xl p-8 w-full max-w-lg text-center relative shadow-[0_0_40px_rgba(102,178,255,0.3)]">
@@ -199,7 +195,7 @@ export default function Inicio({ filtroBusqueda = '' }) {
                 alt={juegoActual.title}
                 className="w-full max-h-[250px] object-cover rounded-lg mb-6 mt-2 border border-gray-600 shadow-lg" 
             />
-            <p className="text-gray-300 mb-8 text-sm md:text-base leading-relaxed">{juegoActual.description}</p>
+            <p className="text-gray-300 mb-8 text-sm md:text-base leading-relaxed truncate-3-lines">{juegoActual.description}</p>
             
             <div className="flex gap-4 justify-center">
               <button 
