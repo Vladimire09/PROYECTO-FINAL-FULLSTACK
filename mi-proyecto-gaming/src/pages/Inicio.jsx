@@ -9,9 +9,6 @@ export default function Inicio({ filtroBusqueda = '' }) {
   const [juegoActual, setJuegoActual] = useState({});
   const { addToCart, addToWishlist } = useContext(UserContext);
 
-  // ESTADOS PARA EL CARRUSEL
-  const [currentSlide, setCurrentSlide] = useState(0);
-
   useEffect(() => {
     const obtenerJuegos = async () => {
       try {
@@ -26,17 +23,6 @@ export default function Inicio({ filtroBusqueda = '' }) {
     };
     obtenerJuegos();
   }, []);
-
-  // EFECTO PARA AUTO-ROTAR EL CARRUSEL
-  const juegosCarrusel = juegosSlider.slice(0, 5); // Tomamos los primeros 5 juegos
-  useEffect(() => {
-    if (juegosCarrusel.length > 0 && !filtroBusqueda) {
-      const timer = setInterval(() => {
-        setCurrentSlide((prev) => (prev === juegosCarrusel.length - 1 ? 0 : prev + 1));
-      }, 5000); // Cambia cada 5 segundos
-      return () => clearInterval(timer);
-    }
-  }, [juegosCarrusel.length, filtroBusqueda]);
 
   const abrirModal = (juego) => {
     setJuegoActual(juego);
@@ -61,113 +47,39 @@ export default function Inicio({ filtroBusqueda = '' }) {
 
   return (
     <div className="flex flex-col items-center w-full mt-5 px-4">
-      
+
       <div className="w-full max-w-[1200px]">
-
-        {/* --- INICIO DEL CARRUSEL ARREGLADO Y COMPACTO --- */}
-        {!filtroBusqueda && juegosCarrusel.length > 0 && (
-          <div className="w-full h-[250px] sm:h-[300px] relative overflow-hidden rounded-xl mb-12 border border-gray-700 shadow-xl group bg-[#1a1a24]">
-            {juegosCarrusel.map((juego, index) => (
-              <div
-                key={juego._id}
-                className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-                  index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
-                }`}
-              >
-                {/* Contenido del carrusel compactado y limpio */}
-                <div className="absolute inset-0 z-20 flex flex-col md:flex-row items-center gap-6 p-5">
-                  {/* Imagen principal a la izquierda, ocupando la altura */}
-                  <div className="h-[180px] md:h-full w-auto flex-none">
-                    <img 
-                      src={juego.imageUrl} 
-                      alt={juego.title} 
-                      className="h-full w-auto object-contain rounded-lg border border-gray-600 cursor-pointer hover:border-[#66b2ff] transition-all hover:scale-105"
-                      onClick={() => abrirModal(juego)}
-                    />
-                  </div>
-                  {/* Contenedor de texto a la derecha, centrado verticalmente */}
-                  <div className="text-center md:text-left flex-1 flex flex-col items-center md:items-start justify-center">
-                    <span className="bg-[#1a1a24] border border-gray-600 text-[#66b2ff] text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-2 inline-block">
-                      Destacado
-                    </span>
-                    <h2 className="text-2xl md:text-3xl font-extrabold text-white mb-2 uppercase drop-shadow-lg leading-snug truncate w-full" title={juego.title}>
-                      {juego.title}
-                    </h2>
-                    <p className="text-[#66b2ff] text-xl font-bold mb-5 drop-shadow-md">
-                      Mex ${juego.price}
-                    </p>
-                    <button 
-                      onClick={() => abrirModal(juego)}
-                      className="bg-[#66b2ff] text-[#1e262c] px-5 py-2 rounded-full font-bold text-base hover:bg-white transition-all shadow-md hover:shadow-[#66b2ff]/40"
-                    >
-                      Ver Detalles
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-
-            {/* Controles del Carrusel (Flechas) */}
-            <button
-              onClick={() => setCurrentSlide(prev => prev === 0 ? juegosCarrusel.length - 1 : prev - 1)}
-              className="absolute top-1/2 left-3 -translate-y-1/2 bg-black/60 text-white w-10 h-10 flex items-center justify-center rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-30 hover:bg-[#66b2ff] hover:text-black text-xl shadow-lg border border-gray-600"
-            >
-              &#10094;
-            </button>
-            <button
-              onClick={() => setCurrentSlide(prev => prev === juegosCarrusel.length - 1 ? 0 : prev + 1)}
-              className="absolute top-1/2 right-3 -translate-y-1/2 bg-black/60 text-white w-10 h-10 flex items-center justify-center rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-30 hover:bg-[#66b2ff] hover:text-black text-xl shadow-lg border border-gray-600"
-            >
-              &#10095;
-            </button>
-
-            {/* Indicadores (Puntitos) */}
-            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2.5 z-30 bg-black/50 px-3 py-1.5 rounded-full border border-gray-700">
-              {juegosCarrusel.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentSlide(index)}
-                  className={`w-2.5 h-2.5 rounded-full transition-all ${
-                    index === currentSlide ? 'bg-[#66b2ff] w-7' : 'bg-gray-500 hover:bg-white'
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
-        )}
-        {/* --- FIN DEL CARRUSEL ARREGLADO --- */}
-
         {Object.keys(juegosPorGenero).length === 0 ? (
           <p className="text-center text-gray-400 text-xl mt-10">
             No se encontraron juegos que coincidan con tu búsqueda.
           </p>
         ) : (
           Object.keys(juegosPorGenero).map(genero => (
-            <div key={genero} className="mb-16 text-center"> 
-              
+            // Centramos el contenedor del género
+            <div key={genero} className="mb-12 text-center"> 
+
               <Link 
                 to={`/genero/${genero}`} 
                 className="text-3xl font-bold text-[#66b2ff] uppercase hover:text-white transition-colors mb-8 inline-block border-b-2 border-[#66b2ff] pb-1"
               >
                 {genero} &raquo;
               </Link>
-              
+
+              {/* 'justify-center' hace que las tarjetas se agrupen al centro si no llenan la fila */}
               <section className="flex flex-wrap justify-center gap-8">
                 {juegosPorGenero[genero].map((juego) => (
                   <div 
                     key={juego._id} 
-                    className="w-[250px] bg-[#1a1a24] border-2 border-white rounded-xl p-4 transition-all hover:-translate-y-2 hover:border-[#66b2ff] hover:shadow-[0_10px_20px_rgba(102,178,255,0.2)] cursor-pointer text-left flex flex-col" 
+                    className="w-[250px] bg-[#1a1a24] border-2 border-white rounded-xl p-4 transition-all hover:-translate-y-2 hover:border-[#66b2ff] cursor-pointer text-left" 
                     onClick={() => abrirModal(juego)}
                   >
+                    <h3 className="text-white text-xl font-bold mb-2 uppercase truncate">{juego.title}</h3>
                     <img 
                         src={juego.imageUrl} 
                         alt={juego.title} 
-                        className="w-full h-[250px] rounded-lg object-cover mb-4" 
+                        className="w-full h-[250px] rounded-lg object-cover mb-3" 
                     />
-                    <h3 className="text-white text-xl font-bold mb-1 uppercase truncate" title={juego.title}>
-                      {juego.title}
-                    </h3>
-                    <p className="text-[#66b2ff] font-bold text-xl mt-auto">Mex ${juego.price}</p>
+                    <p className="text-[#66b2ff] font-bold text-xl">Mex ${juego.price}</p>
                   </div>
                 ))}
               </section>
@@ -176,37 +88,37 @@ export default function Inicio({ filtroBusqueda = '' }) {
         )}
       </div>
 
-      {/* MODAL (sin cambios, solo mejoras sutiles de estilo) */}
+      {/* MODAL */}
       {modalAbierto && (
-        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-[100] p-4 backdrop-blur-sm">
-          <div className="bg-[#2c353e] border-2 border-[#66b2ff] rounded-2xl p-8 w-full max-w-lg text-center relative shadow-[0_0_40px_rgba(102,178,255,0.3)]">
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-[100] p-4">
+          <div className="bg-[#2c353e] border-2 border-white rounded-2xl p-8 w-full max-w-lg text-center relative shadow-2xl">
             <button 
-                className="absolute top-4 right-4 text-gray-400 hover:text-red-500 text-4xl leading-none transition-colors" 
+                className="absolute top-4 right-4 text-white text-3xl hover:text-red-500" 
                 onClick={() => setModalAbierto(false)}
             >
                 &times;
             </button>
-            <h2 className="text-white text-3xl font-bold mb-2 uppercase">{juegoActual.title}</h2>
-            <span className="bg-[#1a1a24] border border-gray-600 text-[#66b2ff] text-xs font-bold px-3 py-1 rounded-full mb-4 inline-block">
+            <h2 className="text-white text-3xl font-bold mb-2">{juegoActual.title}</h2>
+            <span className="bg-gray-600 text-white text-xs px-2 py-1 rounded-full mb-4 inline-block">
                 {juegoActual.genre}
             </span>
             <img 
                 src={juegoActual.imageUrl} 
                 alt={juegoActual.title}
-                className="w-full max-h-[250px] object-cover rounded-lg mb-6 mt-2 border border-gray-600 shadow-lg" 
+                className="w-full max-h-[250px] object-cover rounded-lg mb-4 mt-2 border border-gray-500" 
             />
-            <p className="text-gray-300 mb-8 text-sm md:text-base leading-relaxed truncate-3-lines">{juegoActual.description}</p>
-            
+            <p className="text-gray-300 mb-6">{juegoActual.description}</p>
+
             <div className="flex gap-4 justify-center">
               <button 
                 onClick={() => { addToCart(juegoActual._id); setModalAbierto(false); }} 
-                className="bg-[#66b2ff] text-[#1e262c] px-6 py-3 rounded-full font-bold hover:bg-white transition-all shadow-lg hover:shadow-[#66b2ff]/50 flex-1"
+                className="bg-[#66b2ff] text-[#1e262c] px-6 py-2 rounded-md font-bold hover:bg-white transition-all"
               >
                 Agregar al Carrito
               </button>
               <button 
                 onClick={() => { addToWishlist(juegoActual._id); setModalAbierto(false); }} 
-                className="bg-transparent border-2 border-pink-500 text-pink-500 px-6 py-3 rounded-full font-bold hover:bg-pink-500 hover:text-white transition-all shadow-lg flex-1"
+                className="bg-pink-600 text-white px-4 py-2 rounded-md font-bold hover:bg-pink-400 transition-all"
               >
                  Desear
               </button>
@@ -216,4 +128,5 @@ export default function Inicio({ filtroBusqueda = '' }) {
       )}
     </div>
   );
+}
 }
