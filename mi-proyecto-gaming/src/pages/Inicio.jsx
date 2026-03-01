@@ -12,7 +12,7 @@ export default function Inicio({ filtroBusqueda = '' }) {
   useEffect(() => {
     const obtenerJuegos = async () => {
       try {
-        const respuesta = await fetch("http://localhost:3000/games");
+        const respuesta = await fetch("https://proyecto-final-fullstack-4pbz.onrender.com/games");
         const datos = await respuesta.json();
         setJuegosSlider(datos);
         setLoading(false);
