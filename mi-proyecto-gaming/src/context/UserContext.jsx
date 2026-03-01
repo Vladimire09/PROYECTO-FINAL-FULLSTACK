@@ -2,6 +2,9 @@ import { createContext, useState, useEffect, useCallback } from 'react';
 
 export const UserContext = createContext();
 
+// Definimos la URL base para no repetirla y evitar errores
+const API_BASE_URL = "https://proyecto-final-fullstack-4pbz.onrender.com";
+
 export const UserProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [wishlist, setWishlist] = useState([]);
@@ -11,7 +14,8 @@ export const UserProvider = ({ children }) => {
   const fetchUserData = useCallback(async (endpoint, setter) => {
     if (!token) return;
     try {
-      const res = await fetch(`https://proyecto-final-fullstack-4pbz.onrender.com/${endpoint}`, {
+      // Agregamos /api/user/ antes del endpoint (cart o wishlist)
+      const res = await fetch(`${API_BASE_URL}/api/user/${endpoint}`, {
         headers: { "Authorization": `Bearer ${token}` }
       });
       if (res.ok) {
@@ -49,9 +53,13 @@ export const UserProvider = ({ children }) => {
   const addToCart = async (gameId) => {
     if (!token) return alert("Debes iniciar sesión para agregar al carrito.");
     try {
-      const res = await fetch("https://proyecto-final-fullstack-4pbz.onrender.com/", {
+      // Ruta corregida: /api/user/cart
+      const res = await fetch(`${API_BASE_URL}/api/user/cart`, {
         method: "POST",
-        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+        headers: { 
+          "Content-Type": "application/json", 
+          "Authorization": `Bearer ${token}` 
+        },
         body: JSON.stringify({ gameId })
       });
       if (res.ok) fetchUserData('cart', setCart);
@@ -61,9 +69,13 @@ export const UserProvider = ({ children }) => {
   const addToWishlist = async (gameId) => {
     if (!token) return alert("Debes iniciar sesión para agregar a deseados.");
     try {
-      const res = await fetch("https://proyecto-final-fullstack-4pbz.onrender.com/", {
+      // Ruta corregida: /api/user/wishlist
+      const res = await fetch(`${API_BASE_URL}/api/user/wishlist`, {
         method: "POST",
-        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+        headers: { 
+          "Content-Type": "application/json", 
+          "Authorization": `Bearer ${token}` 
+        },
         body: JSON.stringify({ gameId })
       });
       if (res.ok) fetchUserData('wishlist', setWishlist);
@@ -72,7 +84,8 @@ export const UserProvider = ({ children }) => {
 
   const removeFrom = async (endpoint, gameId) => {
     try {
-      const res = await fetch(`https://proyecto-final-fullstack-4pbz.onrender.com/${endpoint}/remove/${gameId}`, {
+      // Ruta corregida: /api/user/[endpoint]/remove/[id]
+      const res = await fetch(`${API_BASE_URL}/api/user/${endpoint}/remove/${gameId}`, {
         method: "DELETE",
         headers: { "Authorization": `Bearer ${token}` }
       });
