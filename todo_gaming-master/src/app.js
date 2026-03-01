@@ -14,4 +14,4 @@ app.use('/api/user', userActionsRoutes);
 app.use("/auth", authRoutes);   // Para login y registro
 app.use("/games", gamesRoutes); // Para el CRUD de videojuegos
 
-module.exports = app;
+export default app;
