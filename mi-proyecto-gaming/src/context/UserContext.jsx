@@ -11,7 +11,7 @@ export const UserProvider = ({ children }) => {
   const fetchUserData = useCallback(async (endpoint, setter) => {
     if (!token) return;
     try {
-      const res = await fetch(`http://localhost:3000/api/user/${endpoint}`, {
+      const res = await fetch(`https://proyecto-final-fullstack-4pbz.onrender.com/${endpoint}`, {
         headers: { "Authorization": `Bearer ${token}` }
       });
       if (res.ok) {
