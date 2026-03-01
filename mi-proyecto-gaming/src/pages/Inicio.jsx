@@ -129,4 +129,4 @@ export default function Inicio({ filtroBusqueda = '' }) {
     </div>
   );
 }
-}
+
