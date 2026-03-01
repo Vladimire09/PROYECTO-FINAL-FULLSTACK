@@ -10,7 +10,7 @@ export default function Registro() {
     e.preventDefault();
 
     try {
-      const res = await fetch("http://localhost:3000/auth/register", {
+      const res = await fetch("https://proyecto-final-fullstack-4pbz.onrender.com/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
