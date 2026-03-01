@@ -16,7 +16,7 @@ export default function Login() {
     }
 
     try {
-      const respuesta = await fetch("http://localhost:3000/auth/login", {
+      const respuesta = await fetch("https://proyecto-final-fullstack-4pbz.onrender.com/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
