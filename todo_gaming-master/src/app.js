@@ -1,4 +1,4 @@
-const express = require("express");
+import express from "express";
 const authRoutes = require("./routes/auth.routes");
 const gamesRoutes = require("./routes/gameRoutes");
 const userActionsRoutes = require('./routes/userActions.routes')
