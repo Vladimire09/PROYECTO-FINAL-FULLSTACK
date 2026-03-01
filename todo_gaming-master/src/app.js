@@ -1,7 +1,7 @@
 import express from "express";
 import authRoutes from "./routes/auth.routes.js";
-const gamesRoutes = require("./routes/gameRoutes");
-const userActionsRoutes = require('./routes/userActions.routes')
+import gamesRoutes from "./routes/gameRoutes";
+import userActionsRoutes from './routes/userActions.routes';
 const app = express();
 const cors = require("cors"); // <--- 1. Importar cors
 
