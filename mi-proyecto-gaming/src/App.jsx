@@ -30,11 +30,9 @@ function App() {
     <div className="min-h-screen flex flex-col bg-[#1e262c] text-white font-sans">
       <BrowserRouter>
 
-        {/* HEADER */}
         <header className="bg-[#404040] border-b-[3px] border-[#1a1a1a] py-3 px-6 sticky top-0 z-50 shadow-2xl">
           <div className="flex items-center justify-between gap-4 w-full">
 
-            {/* Logo */}
             <Link 
               to="/" 
               className="flex items-center min-w-[200px] no-underline"
@@ -51,7 +49,6 @@ function App() {
               </span>
             </Link>
 
-            {/* Buscador */}
             <div className="flex-grow max-w-[600px] relative mx-6">
               <input
                 type="text"
@@ -66,10 +63,9 @@ function App() {
               />
             </div>
 
-            {/* NAV */}
+
             <nav className="flex items-center gap-12">
 
-              {/* Links principales */}
               <div className="flex items-center gap-8">
                 <Link 
                   to="/" 
@@ -88,7 +84,6 @@ function App() {
                 )}
               </div>
 
-              {/* Usuario logueado */}
               {usuario && (
                 <div className="flex items-center gap-3 bg-[#2c353e] px-4 py-1 rounded-full border border-gray-500">
                   <span className="text-[#66b2ff] font-bold text-sm">
@@ -103,7 +98,6 @@ function App() {
                 </div>
               )}
 
-              {/* Iconos */}
               <div className="flex items-center gap-8 border-l border-gray-600 pl-8">
 
                 <Link
@@ -136,7 +130,6 @@ function App() {
           </div>
         </header>
 
-        {/* MAIN CENTRADO */}
         <main className="flex items-center justify-center flex-grow px-4 py-12">
           <Routes>
             <Route path="/" element={<Inicio filtroBusqueda={busqueda} />} />
@@ -150,7 +143,6 @@ function App() {
           </Routes>
         </main>
 
-        {/* FOOTER */}
         <footer className="py-8 text-center text-gray-500 text-xs border-t border-gray-800">
           Todo gaming para todo público. <br />
           © 2026 Todo Gaming - Todos los derechos reservados.

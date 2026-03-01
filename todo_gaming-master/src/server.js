@@ -1,11 +1,14 @@
-const dns = require('node:dns/promises');
-dns.setServers(["1.1.1.1", "8.8.8.8"]);
+import { setServers } from 'node:dns/promises';
+setServers(["1.1.1.1", "8.8.8.8"]);
 
-const app = require("./app");
-const connectDB = require("./config/db");
+// Cambiamos require por import
+import app from "./app.js"; 
+import connectDB from "./db.js"; // Asegúrate de poner la extensión .js
 
 connectDB();
 
-app.listen(3000, () => {
-  console.log("🚀 Servidor corriendo en puerto 3000");
+const PORT = process.env.PORT || 3000; // Render asigna su propio puerto, es mejor usar esta variable
+
+app.listen(PORT, () => {
+  console.log(`🚀 Servidor corriendo en puerto ${PORT}`);
 });
