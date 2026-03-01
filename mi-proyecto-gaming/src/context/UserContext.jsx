@@ -49,7 +49,7 @@ export const UserProvider = ({ children }) => {
   const addToCart = async (gameId) => {
     if (!token) return alert("Debes iniciar sesión para agregar al carrito.");
     try {
-      const res = await fetch("http://localhost:3000/api/user/cart/add", {
+      const res = await fetch("https://proyecto-final-fullstack-4pbz.onrender.com/", {
         method: "POST",
         headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
         body: JSON.stringify({ gameId })
@@ -61,7 +61,7 @@ export const UserProvider = ({ children }) => {
   const addToWishlist = async (gameId) => {
     if (!token) return alert("Debes iniciar sesión para agregar a deseados.");
     try {
-      const res = await fetch("http://localhost:3000/api/user/wishlist/add", {
+      const res = await fetch("https://proyecto-final-fullstack-4pbz.onrender.com/", {
         method: "POST",
         headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
         body: JSON.stringify({ gameId })
@@ -72,7 +72,7 @@ export const UserProvider = ({ children }) => {
 
   const removeFrom = async (endpoint, gameId) => {
     try {
-      const res = await fetch(`http://localhost:3000/api/user/${endpoint}/remove/${gameId}`, {
+      const res = await fetch(`https://proyecto-final-fullstack-4pbz.onrender.com/${endpoint}/remove/${gameId}`, {
         method: "DELETE",
         headers: { "Authorization": `Bearer ${token}` }
       });
