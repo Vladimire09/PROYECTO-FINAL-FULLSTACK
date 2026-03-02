@@ -9,36 +9,47 @@ export const UserProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [wishlist, setWishlist] = useState([]);
   
-  // Corregimos la carga inicial: si no hay token, debe ser null (no "null" en texto)
-  const [token, setToken] = useState(localStorage.getItem("token") || null);
-  const [usuario, setUsuario] = useState(localStorage.getItem("nombreGuardado") || null);
+  // 1. Inicialización robusta: Validamos que el token sea un string real y no "null"
+  const [token, setToken] = useState(() => {
+    const savedToken = localStorage.getItem("token");
+    return (savedToken && savedToken !== "null") ? savedToken : null;
+  });
 
-  // Función para obtener datos (Carrito o Wishlist)
+  const [usuario, setUsuario] = useState(() => {
+    const savedNombre = localStorage.getItem("nombreGuardado");
+    return (savedNombre && savedNombre !== "null") ? savedNombre : null;
+  });
+
+  // 2. Función para obtener datos (Carrito o Wishlist)
   const fetchUserData = useCallback(async (endpoint, setter) => {
-    // Si no hay token o es el string "null", no hacemos la petición
+    // Si no hay token, no intentamos la petición para evitar el 403
     if (!token || token === "null") return;
 
     try {
       const res = await fetch(`${API_BASE_URL}/api/user/${endpoint}`, {
         method: "GET",
         headers: { 
-          "Authorization": `Bearer ${token}` 
+          "Authorization": `Bearer ${token}`, // El espacio después de Bearer es vital
+          "Content-Type": "application/json"
         }
       });
 
       if (res.ok) {
         const data = await res.json();
-        // El backend devuelve directamente el arreglo poblado
         setter(data); 
       } else {
-        console.error(`Error al obtener ${endpoint}: ${res.status}`);
+        console.error(`Error ${res.status} al obtener ${endpoint}`);
+        if (res.status === 403 || res.status === 401) {
+          // Si el token ya no es válido, limpiamos el estado
+          logoutUser();
+        }
       }
     } catch (err) {
-      console.error(`Error de red al obtener ${endpoint}:`, err);
+      console.error(`Error de red en ${endpoint}:`, err);
     }
   }, [token]);
 
-  // Sincronizar datos cuando el token cambie (Login/Logout)
+  // 3. Sincronizar datos automáticamente cuando el token cambie
   useEffect(() => {
     if (token && token !== "null") {
       fetchUserData('cart', setCart);
@@ -46,6 +57,7 @@ export const UserProvider = ({ children }) => {
     }
   }, [token, fetchUserData]);
 
+  // 4. Funciones de Autenticación
   const loginUser = (newToken, username) => {
     localStorage.setItem("token", newToken);
     localStorage.setItem("nombreGuardado", username);
@@ -62,12 +74,11 @@ export const UserProvider = ({ children }) => {
     setWishlist([]);
   };
 
-  // --- CARRITO ---
+  // 5. Acciones del Carrito
   const addToCart = async (gameId) => {
-    if (!token || token === "null") return alert("Debes iniciar sesión para agregar al carrito.");
+    if (!token) return alert("Debes iniciar sesión para agregar al carrito.");
     
     try {
-      // Tu backend espera la ruta /api/user/cart/add
       const res = await fetch(`${API_BASE_URL}/api/user/cart/add`, {
         method: "POST",
         headers: { 
@@ -88,12 +99,11 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  // --- WISHLIST ---
+  // 6. Acciones de la Wishlist
   const addToWishlist = async (gameId) => {
-    if (!token || token === "null") return alert("Debes iniciar sesión para la lista de deseos.");
+    if (!token) return alert("Debes iniciar sesión para la lista de deseos.");
     
     try {
-      // Tu backend espera la ruta /api/user/wishlist/add
       const res = await fetch(`${API_BASE_URL}/api/user/wishlist/add`, {
         method: "POST",
         headers: { 
@@ -114,12 +124,11 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  // --- ELIMINAR ---
+  // 7. Eliminar elementos
   const removeFrom = async (endpoint, gameId) => {
-    if (!token || token === "null") return;
+    if (!token) return;
 
     try {
-      // Ruta: /api/user/cart/remove/:gameId o /api/user/wishlist/remove/:gameId
       const res = await fetch(`${API_BASE_URL}/api/user/${endpoint}/remove/${gameId}`, {
         method: "DELETE",
         headers: { 
@@ -128,7 +137,6 @@ export const UserProvider = ({ children }) => {
       });
 
       if (res.ok) {
-        // Refrescamos los datos localmente
         fetchUserData(endpoint, endpoint === 'cart' ? setCart : setWishlist);
       }
     } catch (err) {
