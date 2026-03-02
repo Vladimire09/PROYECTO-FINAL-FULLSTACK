@@ -7,7 +7,7 @@ export default function Inicio({ filtroBusqueda = '' }) {
   const [loading, setLoading] = useState(true);
   const [modalAbierto, setModalAbierto] = useState(false);
   const [juegoActual, setJuegoActual] = useState({});
-  const [indiceSlider, setIndiceSlider] = useState(0); // Para el control del carrusel
+  const [indiceSlider, setIndiceSlider] = useState(0); 
   const { addToCart, addToWishlist } = useContext(UserContext);
 
   useEffect(() => {
@@ -25,7 +25,6 @@ export default function Inicio({ filtroBusqueda = '' }) {
     obtenerJuegos();
   }, []);
 
-  // Lógica para cambiar el slider automáticamente cada 5 segundos
   useEffect(() => {
     if (juegosSlider.length > 0) {
       const intervalo = setInterval(() => {
@@ -43,12 +42,10 @@ export default function Inicio({ filtroBusqueda = '' }) {
   if (loading) return <div className="text-white text-center mt-20">Cargando...</div>;
   if (juegosSlider.length === 0) return <div className="text-white text-center mt-20">No hay juegos disponibles.</div>;
 
-  // 1. Filtrar los juegos por búsqueda
   const juegosFiltrados = juegosSlider.filter(juego => 
     juego.title.toLowerCase().includes(filtroBusqueda.toLowerCase())
   );
 
-  // 2. Agrupar por género
   const juegosPorGenero = juegosFiltrados.reduce((acc, juego) => {
     const genero = juego.genre || 'General';
     if (!acc[genero]) acc[genero] = [];
@@ -56,28 +53,25 @@ export default function Inicio({ filtroBusqueda = '' }) {
     return acc;
   }, {});
 
-  // 3. Seleccionar los juegos destacados (el primero de cada categoría) para el Carrusel
-  const juegosDestacados = Object.values(juegosPorGenero).map(lista => lista[0]).slice(0, 5); // Limitado a 5 destacados
+  const juegosDestacados = Object.values(juegosPorGenero).map(lista => lista[0]).slice(0, 5); 
   const destacadoActual = juegosDestacados[indiceSlider];
 
   return (
     <div className="flex flex-col items-center w-full mt-5 px-4">
-      
-      {/* --- CARRUSEL ESTILO TODO GAMING --- */}
+
       {juegosDestacados.length > 0 && !filtroBusqueda && (
         <div className="w-full max-w-[1000px] mb-12 relative group">
           <div 
             className="w-full h-[400px] md:h-[500px] rounded-xl overflow-hidden relative border-2 border-gray-700 shadow-2xl cursor-pointer"
             onClick={() => abrirModal(destacadoActual)}
           >
-            {/* Imagen de fondo */}
+  
             <img 
               src={destacadoActual.imageUrl} 
               alt={destacadoActual.title} 
               className="w-full h-full object-cover transition-opacity duration-700"
             />
             
-            {/* Barra de información inferior (Estilo imagen) */}
             <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-[90%] bg-[#1a1a24]/90 border border-white/20 py-2 px-6 rounded-md flex justify-center items-center gap-4 text-white shadow-lg">
               <span className="font-bold text-lg">{destacadoActual.title}</span>
               <span className="text-[#66b2ff] font-bold">Mex ${destacadoActual.price}</span>
@@ -85,7 +79,6 @@ export default function Inicio({ filtroBusqueda = '' }) {
             </div>
           </div>
 
-          {/* Botones de navegación (1, 2, 3...) */}
           <div className="flex justify-center gap-3 mt-4">
             {juegosDestacados.map((_, index) => (
               <button
@@ -106,7 +99,6 @@ export default function Inicio({ filtroBusqueda = '' }) {
         </div>
       )}
 
-      {/* --- GRILLA DE JUEGOS POR CATEGORÍA --- */}
       <div className="w-full max-w-[1200px]">
         {Object.keys(juegosPorGenero).length === 0 ? (
           <p className="text-center text-gray-400 text-xl mt-10">
@@ -144,7 +136,6 @@ export default function Inicio({ filtroBusqueda = '' }) {
         )}
       </div>
 
-      {/* MODAL DE DETALLES */}
       {modalAbierto && (
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-[100] p-4">
           <div className="bg-[#2c353e] border-2 border-white rounded-2xl p-8 w-full max-w-lg text-center relative shadow-2xl">
