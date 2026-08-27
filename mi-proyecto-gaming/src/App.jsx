@@ -42,7 +42,7 @@ function App() {
                 src={logo} 
                 alt="Logo"
                 style={{ width: '45px', height: '45px' }}
-                
+                className="border-black object-cover"
               />
               <span className="ml-3 text-2xl font-bold text-white">
                 Todo Gaming
