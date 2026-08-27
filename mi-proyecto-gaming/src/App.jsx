@@ -20,7 +20,7 @@ import {
   faMagnifyingGlass 
 } from '@fortawesome/free-solid-svg-icons';
 
-import logo from './assets/LOGO.jpeg';
+import logo from './assets/TGLogo.png';
 
 function App() {
   const { usuario, logoutUser, cart, wishlist } = useContext(UserContext);
