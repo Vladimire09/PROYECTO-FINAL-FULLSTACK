@@ -20,7 +20,7 @@ import {
   faMagnifyingGlass 
 } from '@fortawesome/free-solid-svg-icons';
 
-import logo from './assets/TGLogo.png';
+import logo from './assets/LOGO.jpeg';
 
 function App() {
   const { usuario, logoutUser, cart, wishlist } = useContext(UserContext);
@@ -42,7 +42,7 @@ function App() {
                 src={logo} 
                 alt="Logo"
                 style={{ width: '45px', height: '45px' }}
-                className="rounded-full border-2 border-black object-cover"
+                
               />
               <span className="ml-3 text-2xl font-bold text-white">
                 Todo Gaming
