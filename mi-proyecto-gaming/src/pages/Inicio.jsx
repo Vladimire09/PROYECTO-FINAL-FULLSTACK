@@ -112,7 +112,7 @@ useEffect(() => {
                 <img
                   src={anuncio.imagen}
                   alt={anuncio.titulo}
-                  className="absolute inset-0 w-full h-full object-cover"
+                  className="w-full h-full object-cover"
                 />
 
                 {/* Oscurecimiento */}
