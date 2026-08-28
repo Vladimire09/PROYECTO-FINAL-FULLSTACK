@@ -1,6 +1,8 @@
 import { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 import { Link } from 'react-router-dom';
+import juan from "../assets/banner/juan.png";
+import tg from "../assets/banner/TGLogo.png";
 
 export default function Inicio({ filtroBusqueda = '' }) {
   const [juegosSlider, setJuegosSlider] = useState([]);
@@ -8,6 +10,46 @@ export default function Inicio({ filtroBusqueda = '' }) {
   const [modalAbierto, setModalAbierto] = useState(false);
   const [juegoActual, setJuegoActual] = useState({});
   const { addToCart, addToWishlist } = useContext(UserContext);
+  const [slideActual, setSlideActual] = useState(0);
+
+  const anuncios = [
+  {
+    imagen: juan,
+    titulo: 'NUEVO LANZAMIENTO',
+    descripcion: 'Descubre los juegos más recientes.',
+    enlace: '/genero/Accion'
+  },
+  {
+    imagen: tg,
+    titulo: 'LOS MÁS POPULARES',
+    descripcion: 'Los juegos que todos están jugando.',
+    enlace: '/genero/Aventura'
+  }
+];
+
+const siguienteSlide = () => {
+  setSlideActual((actual) =>
+    actual === anuncios.length - 1 ? 0 : actual + 1
+  );
+};
+
+const anteriorSlide = () => {
+  setSlideActual((actual) =>
+    actual === 0 ? anuncios.length - 1 : actual - 1
+  );
+};
+
+const irAlSlide = (indice) => {
+  setSlideActual(indice);
+};
+
+useEffect(() => {
+  const intervalo = setInterval(() => {
+    siguienteSlide();
+  }, 5000);
+
+  return () => clearInterval(intervalo);
+}, []);
 
   useEffect(() => {
     const obtenerJuegos = async () => {
@@ -49,6 +91,108 @@ export default function Inicio({ filtroBusqueda = '' }) {
     <div className="flex flex-col items-center w-full mt-5 px-4">
 
       <div className="w-full max-w-[1200px]">
+        {/* ================= CARRUSEL DE ANUNCIOS ================= */}
+<div className="relative w-full h-[300px] md:h-[400px] overflow-hidden rounded-2xl mb-14 shadow-2xl border border-gray-700 group">
+
+  {/* Slides */}
+  <div
+    className="flex h-full transition-transform duration-700 ease-in-out"
+    style={{
+      transform: `translateX(-${slideActual * 100}%)`
+    }}
+  >
+    {anuncios.map((anuncio, indice) => (
+      <Link
+        key={indice}
+        to={anuncio.enlace}
+        className="relative min-w-full h-full block"
+      >
+
+        {/* Imagen */}
+        <img
+          src={anuncio.imagen}
+          alt={anuncio.titulo}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+
+        {/* Oscurecimiento */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-transparent"></div>
+
+        {/* Información */}
+        <div className="absolute inset-0 flex items-center">
+          <div className="px-8 md:px-14 max-w-[600px] text-left">
+
+            <p className="text-[#66b2ff] font-bold text-sm md:text-base tracking-widest mb-3">
+              {anuncio.titulo}
+            </p>
+
+            <h2 className="text-white text-3xl md:text-5xl font-bold mb-4">
+              {anuncio.descripcion}
+            </h2>
+
+            <span className="inline-block bg-[#66b2ff] text-[#1e262c] font-bold px-6 py-3 rounded-md hover:bg-white transition-colors">
+              VER MÁS
+            </span>
+
+          </div>
+        </div>
+
+      </Link>
+    ))}
+  </div>
+
+
+  {/* Flecha izquierda */}
+  <button
+    onClick={anteriorSlide}
+    aria-label="Anuncio anterior"
+    className="absolute left-4 top-1/2 -translate-y-1/2
+               w-11 h-11 rounded-full
+               bg-black/60 text-white text-2xl
+               opacity-0 group-hover:opacity-100
+               hover:bg-[#66b2ff] hover:text-[#1e262c]
+               transition-all duration-300
+               flex items-center justify-center z-20"
+  >
+    &#10094;
+  </button>
+
+
+  {/* Flecha derecha */}
+  <button
+    onClick={siguienteSlide}
+    aria-label="Siguiente anuncio"
+    className="absolute right-4 top-1/2 -translate-y-1/2
+               w-11 h-11 rounded-full
+               bg-black/60 text-white text-2xl
+               opacity-0 group-hover:opacity-100
+               hover:bg-[#66b2ff] hover:text-[#1e262c]
+               transition-all duration-300
+               flex items-center justify-center z-20"
+  >
+    &#10095;
+  </button>
+
+
+  {/* Indicadores */}
+  <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+    {anuncios.map((_, indice) => (
+      <button
+        key={indice}
+        onClick={() => irAlSlide(indice)}
+        aria-label={`Ir al anuncio ${indice + 1}`}
+        className={`h-2.5 rounded-full transition-all duration-300 ${
+          slideActual === indice
+            ? 'w-8 bg-[#66b2ff]'
+            : 'w-2.5 bg-white/60 hover:bg-white'
+        }`}
+      />
+    ))}
+  </div>
+
+</div>
+{/* ================= FIN DEL CARRUSEL ================= */}
+
         {Object.keys(juegosPorGenero).length === 0 ? (
           <p className="text-center text-gray-400 text-xl mt-10">
             No se encontraron juegos que coincidan con tu búsqueda.
