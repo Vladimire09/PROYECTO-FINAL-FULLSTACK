@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 import { Link } from 'react-router-dom';
 import juan from "../assets/banner/juan.png";
-import tg from "../assets/banner/TGLogo.png";
+import tg from "../assets/banner/TGLogo2.png";
 
 export default function Inicio({ filtroBusqueda = '' }) {
   const [juegosSlider, setJuegosSlider] = useState([]);
