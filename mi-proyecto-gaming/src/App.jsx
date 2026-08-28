@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { UserContext } from './context/UserContext';
 
+import BannerCarousel from '../components/BannerCarousel';
+
 // Páginas
 import Inicio from './pages/Inicio';
 import Login from './pages/Login';
@@ -11,6 +13,7 @@ import Carrito from './pages/Carrito';
 import Deseados from './pages/Deseados';
 import Pago from './pages/Pago';
 import Genero from './pages/Genero';
+import BannerCarousel from './pages/BannerCarousel';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
@@ -129,6 +132,10 @@ function App() {
 
           </div>
         </header>
+
+        <main className="container mx-auto px-4">
+         <BannerCarousel />
+        </main>
 
         <main className="flex items-center justify-center flex-grow px-4 py-12">
           <Routes>
