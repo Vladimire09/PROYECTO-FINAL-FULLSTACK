@@ -12,17 +12,17 @@ export default function Inicio({ filtroBusqueda = '' }) {
   const { addToCart, addToWishlist } = useContext(UserContext);
   const [slideActual, setSlideActual] = useState(0);
 
-  const anuncios = [
+const anuncios = [
   {
     imagen: juan,
-    titulo: 'Juan 1:18 am',
-    descripcion: 'Juan 1:18 am',
-    enlace: '/genero/Accion'
+    titulo: 'TODO GAMING',
+    descripcion: 'Descubre juegos, géneros y nuevas aventuras.',
+    enlace: '/'
   },
   {
     imagen: tg,
-    titulo: 'LOS MÁS POPULARES',
-    descripcion: 'Los juegos que todos están jugando.',
+    titulo: 'DESCUBRE NUESTRO CATÁLOGO',
+    descripcion: 'Encuentra tu próximo juego favorito.',
     enlace: '/genero/Aventura'
   }
 ];
@@ -88,112 +88,125 @@ useEffect(() => {
   }, {});
 
   return (
-    <div className="flex flex-col items-center w-full mt-5 px-4">
-        {/* ================= CARRUSEL DE ANUNCIOS ================= */}
-        <div className="relative w-full h-[320px] md:h-[420px] overflow-hidden rounded-2xl mb-14 shadow-2xl border border-[#66b2ff]/40 group">
+  <div className="flex flex-col items-center w-full mt-5 px-4">
 
-          {/* Slides */}
-          <div
-            className="flex w-full h-full transition-transform duration-700 ease-in-out"
-            style={{
-              transform: `translateX(-${slideActual * 100}%)`
-            }}
-          >
-            {anuncios.map((anuncio, indice) => (
-              <Link
-                key={indice}
-                to={anuncio.enlace}
-                className="relative w-full h-full shrink-0 basis-full"
-              >
+    <div className="w-full max-w-[1200px]">
+      {/* ================= CARRUSEL DE ANUNCIOS ================= */}
+      <div className="relative w-full h-[320px] md:h-[420px] overflow-hidden rounded-2xl mb-14 shadow-2xl border border-[#66b2ff]/40 group"></div>
 
-                {/* Imagen */}
-                <img
-                  src={anuncio.imagen}
-                  alt={anuncio.titulo}
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
+        {/* Contenedor de todos los slides */}
+        <div
+          className="flex h-full transition-transform duration-700 ease-in-out"
+          style={{
+            width: `${anuncios.length * 100}%`,
+            transform: `translateX(-${slideActual * (100 / anuncios.length)}%)`
+          }}
+        >
 
-                {/* Oscurecimiento */}
-                <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-transparent"></div>
+          {anuncios.map((anuncio, indice) => (
+            <div
+              key={indice}
+              className="relative h-full flex-[0_0_100%] overflow-hidden"
+            >
 
-                {/* Información */}
-                <div className="absolute inset-0 flex items-center">
-                  <div className="px-8 md:px-14 max-w-[600px] text-left">
-
-                    <p className="text-[#66b2ff] font-bold text-sm md:text-base tracking-widest mb-3">
-                      {anuncio.titulo}
-                    </p>
-
-                    <h2 className="text-white text-3xl md:text-5xl font-bold mb-4">
-                      {anuncio.descripcion}
-                    </h2>
-
-                    <span className="inline-block bg-[#66b2ff] text-[#1e262c] font-bold px-6 py-3 rounded-md hover:bg-white transition-colors">
-                      VER MÁS
-                    </span>
-
-                  </div>
-                </div>
-
-              </Link>
-            ))}
-          </div>
-
-
-          {/* Flecha izquierda */}
-          <button
-            onClick={anteriorSlide}
-            aria-label="Anuncio anterior"
-            className="
-              absolute left-4 top-1/2 -translate-y-1/2
-              w-11 h-11 rounded-full
-              bg-black/60 text-white text-2xl
-              opacity-0 group-hover:opacity-100
-              hover:bg-[#66b2ff] hover:text-[#1e262c]
-              transition-all duration-300
-              flex items-center justify-center z-20
-            "
-          >
-            &#10094;
-          </button>
-
-
-          {/* Flecha derecha */}
-          <button
-            onClick={siguienteSlide}
-            aria-label="Siguiente anuncio"
-            className="
-              absolute right-4 top-1/2 -translate-y-1/2
-              w-11 h-11 rounded-full
-              bg-black/60 text-white text-2xl
-              opacity-0 group-hover:opacity-100
-              hover:bg-[#66b2ff] hover:text-[#1e262c]
-              transition-all duration-300
-              flex items-center justify-center z-20
-            "
-          >
-            &#10095;
-          </button>
-
-
-          {/* Indicadores */}
-          <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-2 z-20">
-            {anuncios.map((_, indice) => (
-              <button
-                key={indice}
-                onClick={() => irAlSlide(indice)}
-                aria-label={`Ir al anuncio ${indice + 1}`}
-                className={`h-2.5 rounded-full transition-all duration-300 ${
-                  slideActual === indice
-                    ? 'w-8 bg-[#66b2ff]'
-                    : 'w-2.5 bg-white/60 hover:bg-white'
-                }`}
+              {/* Imagen */}
+              <img
+                src={anuncio.imagen}
+                alt={anuncio.titulo}
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover'
+                }}
               />
-            ))}
-          </div>
+
+              {/* Oscurecimiento */}
+              <div className="absolute inset-0 bg-black/40"></div>
+
+              {/* Degradado para que el texto se vea mejor */}
+              <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
+
+              {/* Contenido */}
+              <div className="absolute inset-0 flex items-center">
+                <div className="px-8 md:px-14 max-w-[650px]">
+
+                  <p className="text-[#66b2ff] font-bold text-sm md:text-base tracking-widest mb-3">
+                    {anuncio.titulo}
+                  </p>
+
+                  <h2 className="text-white text-3xl md:text-5xl font-bold mb-6">
+                    {anuncio.descripcion}
+                  </h2>
+
+                  <Link
+                    to={anuncio.enlace}
+                    className="inline-block bg-[#66b2ff] text-[#1e262c] font-bold px-6 py-3 rounded-md hover:bg-white transition-colors"
+                  >
+                    VER MÁS
+                  </Link>
+
+                </div>
+              </div>
+
+            </div>
+          ))}
 
         </div>
-        {/* ================= FIN DEL CARRUSEL ================= */}
+
+        {/* Flecha izquierda */}
+        <button
+          onClick={anteriorSlide}
+          aria-label="Anuncio anterior"
+          className="
+            absolute left-4 top-1/2 -translate-y-1/2
+            w-11 h-11 rounded-full
+            bg-black/70 text-white text-2xl
+            opacity-0 group-hover:opacity-100
+            hover:bg-[#66b2ff] hover:text-[#1e262c]
+            transition-all duration-300
+            flex items-center justify-center z-30
+          "
+        >
+          &#10094;
+        </button>
+
+        {/* Flecha derecha */}
+        <button
+          onClick={siguienteSlide}
+          aria-label="Siguiente anuncio"
+          className="
+            absolute right-4 top-1/2 -translate-y-1/2
+            w-11 h-11 rounded-full
+            bg-black/70 text-white text-2xl
+            opacity-0 group-hover:opacity-100
+            hover:bg-[#66b2ff] hover:text-[#1e262c]
+            transition-all duration-300
+            flex items-center justify-center z-30
+          "
+        >
+          &#10095;
+        </button>
+
+        {/* Indicadores */}
+        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-2 z-30">
+          {anuncios.map((_, indice) => (
+            <button
+              key={indice}
+              onClick={() => irAlSlide(indice)}
+              aria-label={`Ir al anuncio ${indice + 1}`}
+              className={`h-2.5 rounded-full transition-all duration-300 ${
+                slideActual === indice
+                  ? 'w-8 bg-[#66b2ff]'
+                  : 'w-2.5 bg-white/60 hover:bg-white'
+              }`}
+            />
+          ))}
+        </div>
+
+      </div>
+      {/* ================= FIN DEL CARRUSEL ================= */}
 
         <div className="w-full max-w-[1200px]">
         {Object.keys(juegosPorGenero).length === 0 ? (
