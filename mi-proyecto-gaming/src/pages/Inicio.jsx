@@ -105,15 +105,15 @@ useEffect(() => {
               <Link
                 key={indice}
                 to={anuncio.enlace}
-                className="relative min-w-full h-full block"
+                className="relative w-full h-full shrink-0 basis-full"
               >
 
                 {/* Imagen */}
                 <img
                   src={anuncio.imagen}
                   alt={anuncio.titulo}
-                  className="relative w-full h-full flex-shrink-0 block"
-              />
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
 
                 {/* Oscurecimiento */}
                 <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-transparent"></div>
@@ -146,13 +146,15 @@ useEffect(() => {
           <button
             onClick={anteriorSlide}
             aria-label="Anuncio anterior"
-            className="absolute left-4 top-1/2 -translate-y-1/2
-                      w-11 h-11 rounded-full
-                      bg-black/60 text-white text-2xl
-                      opacity-0 group-hover:opacity-100
-                      hover:bg-[#66b2ff] hover:text-[#1e262c]
-                      transition-all duration-300
-                      flex items-center justify-center z-20"
+            className="
+              absolute left-4 top-1/2 -translate-y-1/2
+              w-11 h-11 rounded-full
+              bg-black/60 text-white text-2xl
+              opacity-0 group-hover:opacity-100
+              hover:bg-[#66b2ff] hover:text-[#1e262c]
+              transition-all duration-300
+              flex items-center justify-center z-20
+            "
           >
             &#10094;
           </button>
@@ -162,13 +164,15 @@ useEffect(() => {
           <button
             onClick={siguienteSlide}
             aria-label="Siguiente anuncio"
-            className="absolute right-4 top-1/2 -translate-y-1/2
-                      w-11 h-11 rounded-full
-                      bg-black/60 text-white text-2xl
-                      opacity-0 group-hover:opacity-100
-                      hover:bg-[#66b2ff] hover:text-[#1e262c]
-                      transition-all duration-300
-                      flex items-center justify-center z-20"
+            className="
+              absolute right-4 top-1/2 -translate-y-1/2
+              w-11 h-11 rounded-full
+              bg-black/60 text-white text-2xl
+              opacity-0 group-hover:opacity-100
+              hover:bg-[#66b2ff] hover:text-[#1e262c]
+              transition-all duration-300
+              flex items-center justify-center z-20
+            "
           >
             &#10095;
           </button>
