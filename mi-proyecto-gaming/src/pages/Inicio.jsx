@@ -212,44 +212,50 @@ export default function Inicio({ filtroBusqueda = '' }) {
 
       <div className="w-full max-w-[1200px]">
 
-        {/* ========================================================= */}
+
+        {/* ================================================= */}
         {/* CARRUSEL DE ANUNCIOS */}
-        {/* ========================================================= */}
+        {/* ================================================= */}
 
         <div
           className="
             relative
-            z-10
             w-full
             h-[320px]
             md:h-[420px]
-            mb-14
             overflow-hidden
             rounded-2xl
+            mb-14
+            shadow-2xl
             border
             border-[#66b2ff]/40
-            shadow-2xl
-            bg-black
+            group
           "
         >
 
-          {/* ======================================================= */}
-          {/* CONTENEDOR DE SLIDES */}
-          {/* ======================================================= */}
+          {/* ============================================= */}
+          {/* TRACK DEL CARRUSEL */}
+          {/* ============================================= */}
 
           <div
             className="
               flex
               h-full
-              w-full
               transition-transform
               duration-700
               ease-in-out
             "
             style={{
-              transform: `translateX(-${slideActual * 100}%)`
+              width: `${anuncios.length * 100}%`,
+              transform: `translateX(-${
+                slideActual * (100 / anuncios.length)
+              }%)`
             }}
           >
+
+            {/* =========================================== */}
+            {/* SLIDES */}
+            {/* =========================================== */}
 
             {anuncios.map((anuncio, indice) => (
 
@@ -257,16 +263,18 @@ export default function Inicio({ filtroBusqueda = '' }) {
                 key={indice}
                 className="
                   relative
-                  w-full
                   h-full
-                  flex-shrink-0
                   overflow-hidden
+                  flex-shrink-0
                 "
+                style={{
+                  width: `${100 / anuncios.length}%`
+                }}
               >
 
-                {/* ================================================= */}
-                {/* IMAGEN DEL ANUNCIO */}
-                {/* ================================================= */}
+                {/* ===================================== */}
+                {/* IMAGEN */}
+                {/* ===================================== */}
 
                 <img
                   src={anuncio.imagen}
@@ -281,38 +289,38 @@ export default function Inicio({ filtroBusqueda = '' }) {
                 />
 
 
-                {/* ================================================= */}
+                {/* ===================================== */}
                 {/* OSCURECIMIENTO */}
-                {/* ================================================= */}
+                {/* ===================================== */}
 
                 <div
                   className="
                     absolute
                     inset-0
-                    bg-black/50
+                    bg-black/40
                   "
                 />
 
 
-                {/* ================================================= */}
+                {/* ===================================== */}
                 {/* DEGRADADO */}
-                {/* ================================================= */}
+                {/* ===================================== */}
 
                 <div
                   className="
                     absolute
                     inset-0
                     bg-gradient-to-r
-                    from-black/90
-                    via-black/50
+                    from-black/80
+                    via-black/40
                     to-transparent
                   "
                 />
 
 
-                {/* ================================================= */}
-                {/* TEXTO DEL ANUNCIO */}
-                {/* ================================================= */}
+                {/* ===================================== */}
+                {/* INFORMACIÓN DEL ANUNCIO */}
+                {/* ===================================== */}
 
                 <div
                   className="
@@ -325,10 +333,9 @@ export default function Inicio({ filtroBusqueda = '' }) {
 
                   <div
                     className="
-                      w-full
-                      max-w-[650px]
                       px-8
                       md:px-14
+                      max-w-[650px]
                     "
                   >
 
@@ -356,7 +363,6 @@ export default function Inicio({ filtroBusqueda = '' }) {
                         text-3xl
                         md:text-5xl
                         font-bold
-                        leading-tight
                         mb-6
                       "
                     >
@@ -369,9 +375,7 @@ export default function Inicio({ filtroBusqueda = '' }) {
                     <Link
                       to={anuncio.enlace}
                       className="
-                        inline-flex
-                        items-center
-                        justify-center
+                        inline-block
                         bg-[#66b2ff]
                         text-[#1e262c]
                         font-bold
@@ -396,12 +400,11 @@ export default function Inicio({ filtroBusqueda = '' }) {
           </div>
 
 
-          {/* ======================================================= */}
+          {/* ================================================= */}
           {/* FLECHA IZQUIERDA */}
-          {/* ======================================================= */}
+          {/* ================================================= */}
 
           <button
-            type="button"
             onClick={anteriorSlide}
             aria-label="Anuncio anterior"
             className="
@@ -409,42 +412,33 @@ export default function Inicio({ filtroBusqueda = '' }) {
               left-4
               top-1/2
               -translate-y-1/2
-              z-20
-
-              w-12
-              h-12
-
+              w-11
+              h-11
+              rounded-full
+              bg-black/70
+              text-white
+              text-2xl
+              opacity-0
+              group-hover:opacity-100
+              hover:bg-[#66b2ff]
+              hover:text-[#1e262c]
+              transition-all
+              duration-300
               flex
               items-center
               justify-center
-
-              rounded-full
-
-              bg-black/70
-              text-white
-
-              text-2xl
-
-              border
-              border-white/30
-
-              hover:bg-[#66b2ff]
-              hover:text-[#1e262c]
-
-              transition-all
-              duration-300
+              z-30
             "
           >
             &#10094;
           </button>
 
 
-          {/* ======================================================= */}
+          {/* ================================================= */}
           {/* FLECHA DERECHA */}
-          {/* ======================================================= */}
+          {/* ================================================= */}
 
           <button
-            type="button"
             onClick={siguienteSlide}
             aria-label="Siguiente anuncio"
             className="
@@ -452,39 +446,31 @@ export default function Inicio({ filtroBusqueda = '' }) {
               right-4
               top-1/2
               -translate-y-1/2
-              z-20
-
-              w-12
-              h-12
-
+              w-11
+              h-11
+              rounded-full
+              bg-black/70
+              text-white
+              text-2xl
+              opacity-0
+              group-hover:opacity-100
+              hover:bg-[#66b2ff]
+              hover:text-[#1e262c]
+              transition-all
+              duration-300
               flex
               items-center
               justify-center
-
-              rounded-full
-
-              bg-black/70
-              text-white
-
-              text-2xl
-
-              border
-              border-white/30
-
-              hover:bg-[#66b2ff]
-              hover:text-[#1e262c]
-
-              transition-all
-              duration-300
+              z-30
             "
           >
             &#10095;
           </button>
 
 
-          {/* ======================================================= */}
+          {/* ================================================= */}
           {/* INDICADORES */}
-          {/* ======================================================= */}
+          {/* ================================================= */}
 
           <div
             className="
@@ -492,11 +478,9 @@ export default function Inicio({ filtroBusqueda = '' }) {
               bottom-5
               left-1/2
               -translate-x-1/2
-              z-20
-
               flex
-              items-center
               gap-2
+              z-30
             "
           >
 
@@ -504,7 +488,6 @@ export default function Inicio({ filtroBusqueda = '' }) {
 
               <button
                 key={indice}
-                type="button"
                 onClick={() => irAlSlide(indice)}
                 aria-label={`Ir al anuncio ${indice + 1}`}
                 className={`
@@ -512,7 +495,6 @@ export default function Inicio({ filtroBusqueda = '' }) {
                   rounded-full
                   transition-all
                   duration-300
-
                   ${
                     slideActual === indice
                       ? 'w-8 bg-[#66b2ff]'
@@ -527,9 +509,10 @@ export default function Inicio({ filtroBusqueda = '' }) {
 
         </div>
 
-        {/* ========================================================= */}
+        {/* ================================================= */}
         {/* FIN DEL CARRUSEL */}
-        {/* ========================================================= */}
+        {/* ================================================= */}
+
 
 
         {/* ================================================= */}
