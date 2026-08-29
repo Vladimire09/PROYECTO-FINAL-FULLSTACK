@@ -15,8 +15,8 @@ export default function Inicio({ filtroBusqueda = '' }) {
   const anuncios = [
   {
     imagen: juan,
-    titulo: 'NUEVO LANZAMIENTO',
-    descripcion: 'Descubre los juegos más recientes.',
+    titulo: 'Juan 1:18 am',
+    descripcion: 'Juan 1:18 am',
     enlace: '/genero/Accion'
   },
   {
@@ -92,11 +92,11 @@ useEffect(() => {
 
       <div className="w-full max-w-[1200px]">
         {/* ================= CARRUSEL DE ANUNCIOS ================= */}
-        <div className="relative w-full h-[300px] md:h-[400px] overflow-hidden rounded-2xl mb-14 shadow-2xl border border-gray-700 group">
+        <div className="relative w-full h-[320px] md:h-[420px] overflow-hidden rounded-2xl mb-14 shadow-2xl border border-[#66b2ff]/40 group">
 
           {/* Slides */}
           <div
-            className="flex h-full transition-transform duration-700 ease-in-out"
+            className="flex w-full h-full transition-transform duration-700 ease-in-out"
             style={{
               transform: `translateX(-${slideActual * 100}%)`
             }}
@@ -112,8 +112,8 @@ useEffect(() => {
                 <img
                   src={anuncio.imagen}
                   alt={anuncio.titulo}
-                  className="w-full h-full object-cover"
-                />
+                  className="relative w-full h-full flex-shrink-0 block"
+              />
 
                 {/* Oscurecimiento */}
                 <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-transparent"></div>
