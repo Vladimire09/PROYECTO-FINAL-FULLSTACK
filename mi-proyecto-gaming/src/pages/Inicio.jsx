@@ -89,8 +89,6 @@ useEffect(() => {
 
   return (
     <div className="flex flex-col items-center w-full mt-5 px-4">
-
-      <div className="w-full max-w-[1200px]">
         {/* ================= CARRUSEL DE ANUNCIOS ================= */}
         <div className="relative w-full h-[320px] md:h-[420px] overflow-hidden rounded-2xl mb-14 shadow-2xl border border-[#66b2ff]/40 group">
 
@@ -197,6 +195,7 @@ useEffect(() => {
         </div>
         {/* ================= FIN DEL CARRUSEL ================= */}
 
+        <div className="w-full max-w-[1200px]">
         {Object.keys(juegosPorGenero).length === 0 ? (
           <p className="text-center text-gray-400 text-xl mt-10">
             No se encontraron juegos que coincidan con tu búsqueda.
